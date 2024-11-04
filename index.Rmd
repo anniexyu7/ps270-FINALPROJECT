@@ -16,7 +16,7 @@ the relationship between the likelihood of recidivism and the presence of substa
 
 ## Milestone 2
 
-My research question: How does the presence of substance use affect the likelihood of recidivism after incarceration in Wisconsin?
+My research question: How does the presence of substance use affect the likelihood of recidivism after incarceration?
 
 Hypothesis: The presence of substance use increases the likelihood of recidivism in Wisconsin due to the cyclical nature of addiction, isolation/difficulty reengaging with society, lack of rehabilitation treatment centers within jail/prison, and punitive nature of sentencing for drug-related crimes.
 
