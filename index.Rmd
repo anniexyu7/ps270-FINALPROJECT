@@ -91,7 +91,7 @@ dataplot <- ggplot(data_long,
                        y = value,
                        fill = variable)) +
   geom_bar(stat = "identity") +
-  labs(title = "Percentage of Rearrests with/without substance use", 
+  labs(title = "Rearrests Among Those With/Without Presence of Substance Use", 
        x = "Sample Groups", 
        y = "Percentage (%) ") + 
   ylim(0,100) + 
