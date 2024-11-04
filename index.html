@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.28/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/dataset.Rmd","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.28/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1545,7 +1545,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
 <p>I am interested in exploring data related to…
-the relationship between the likelihood of recidivism and the presence of substance use in WI; still unsure on specifics.</p>
+the relationship between the likelihood of recidivism and the presence of substance use.</p>
 <h2 id="milestone-2">Milestone 2</h2>
 <p>My research question: How does the presence of substance use affect the likelihood of recidivism after incarceration in Wisconsin?</p>
 <p>Hypothesis: The presence of substance use increases the likelihood of recidivism in Wisconsin due to the cyclical nature of addiction, isolation/difficulty reengaging with society, lack of rehabilitation treatment centers within jail/prison, and punitive nature of sentencing for drug-related crimes.</p>
@@ -1553,6 +1553,134 @@ the relationship between the likelihood of recidivism and the presence of substa
 <p>The outcome variable of interest is the rate of recidivism for each individual. This is typically measured by the number of re-arrests, re-convictions, and re-incarcerations that occur within three years of being released from jail/prison, including those released on extended supervision/parole. This data is typically public information.</p>
 <p>One observed pattern in the data that would provide support for my hypothesis is higher recidivism rates among those struggling with one or more substance use disorders.</p>
 <p>An observed pattern that would disprove my hypothesis is higher recidivism rates among those without the presence of substance use or those with relatively low levels of substance use. This would mean that substance use is not a causal indicator of high recidivism and that there is a confounding variable that has a larger effect on the likelihood that an individual will re-offend. For instance, mental illness, employment, environment, housing, education, etc.</p>
+<h2 id="milestone-3">Milestone 3</h2>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>num_male</code></td>
+<td style="text-align: left;">number of males in the full sample</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>num_females</code></td>
+<td style="text-align: left;">number of females in the full sample</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>white</code></td>
+<td style="text-align: left;">number of racially/ethnically White individuals</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>black</code></td>
+<td style="text-align: left;">number of racially/ethnically Black individuals</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>hispanic</code></td>
+<td style="text-align: left;">number of racially/ethnically Hispanic individuals</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>single</code></td>
+<td style="text-align: left;">number of individuals whose marital status is single</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>married</code></td>
+<td style="text-align: left;">number of individuals whose marital status is married</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>divorced</code></td>
+<td style="text-align: left;">number of individuals whose marital status is divorced</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>separated</code></td>
+<td style="text-align: left;">number of individuals whose marital status is separated</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>widowed</code></td>
+<td style="text-align: left;">number of individuals whose marital status is widowed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>some_school</code></td>
+<td style="text-align: left;">number of individuals who have completed some education</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>hs_grad</code></td>
+<td style="text-align: left;">number of individuals who have completed high school</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>some_col</code></td>
+<td style="text-align: left;">number of individuals who have completed some college</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>sud_or</code></td>
+<td style="text-align: left;">percentage of sample who have shown a presence of substance use on release of incarceration</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>no_sud_or</code></td>
+<td style="text-align: left;">percentage of sample who have not shown a presence of substance use on release of incarceration</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>sud_rearrest</code></td>
+<td style="text-align: left;">percentage of sample who have shown a presence of substance use and have gotten rearrested within 36 months of release</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>no_sud_rearrest</code></td>
+<td style="text-align: left;">percentage of sample who have not shown a presence of substance use and have gotten rearrested within 36 months of release</td>
+</tr>
+</tbody>
+</table>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"/Users/annieyu/Documents/finalprojectdata.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>data_long</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>sud_or</span>, <span class='va'>sud_rearrest</span>, <span class='va'>no_sud_or</span>, <span class='va'>no_sud_rearrest</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span></span>
+<span>    cols <span class='op'>=</span> <span class='va'>sud_or</span> <span class='op'>:</span> <span class='va'>no_sud_rearrest</span>,</span>
+<span>    names_to <span class='op'>=</span> <span class='st'>"variable"</span>,</span>
+<span>    values_to <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>dataplot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>data_long</span>, </span>
+<span>                   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>variable</span>,</span>
+<span>                       y <span class='op'>=</span> <span class='va'>value</span>,</span>
+<span>                       fill <span class='op'>=</span> <span class='va'>variable</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Rearrests Among Those With/Without Presence of Substance Use"</span>, </span>
+<span>       x <span class='op'>=</span> <span class='st'>"Sample Groups"</span>, </span>
+<span>       y <span class='op'>=</span> <span class='st'>"Percentage (%) "</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"sud_or"</span> <span class='op'>=</span> <span class='st'>"SU On Release"</span>,</span>
+<span>    <span class='st'>"sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"SU Rearrest"</span>,</span>
+<span>    <span class='st'>"no_sud_or"</span> <span class='op'>=</span> <span class='st'>"No SU On Release"</span>, </span>
+<span>    <span class='st'>"no_sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"No SU Rearrest"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span>    <span class='st'>"sud_or"</span> <span class='op'>=</span> <span class='st'>"lightpink"</span>,</span>
+<span>    <span class='st'>"sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"lightpink"</span>,</span>
+<span>    <span class='st'>"no_sud_or"</span> <span class='op'>=</span> <span class='st'>"#BCA4E3"</span>,</span>
+<span>    <span class='st'>"no_sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"#BCA4E3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>dataplot</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<p>The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
