@@ -11,8 +11,7 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
-the relationship between the likelihood of recidivism and the presence of substance use.  
+I am interested in exploring data related to the relationship between the likelihood of recidivism and the presence of substance use.  
 
 ## Milestone 2
 
@@ -93,15 +92,13 @@ dataplot <- ggplot(data_long,
   geom_bar(stat = "identity") +
   labs(title = "Rearrests Among Those With/Without Presence of Substance Use", 
        x = "Sample Groups", 
-       y = "Percentage of Rearrests (%)",
+       y = "Rearrest Rate (%)",
        caption = "Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders ",
        fill = "Sample Groups") +
   ylim(0,100) + 
   scale_x_discrete(labels = c(
     "sud_rearrest" = "Substance Use Present",
     "no_sud_rearrest" = "No Substance Use Present")) +
-  
-  
   scale_fill_manual(values = c(
     "sud_rearrest" = "#1f78b4",
     "no_sud_rearrest" = "#33a02c"),
@@ -121,4 +118,68 @@ dataplot
 
 
 The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison. 
+
+
+## Milestone 4
+
+
+WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES
+-------------------- -----------------------------------------------------------
+ Name                 Description
+ -------------------- ----------------------------------------------------------
+`year`                date of release from incarceration
+
+`Treated`             Individuals with a drug history who participated in a substance use treatment program after release of incarceration
+
+`Control`             Individuals with a drug history who did not participate in a substance use treatment program after release of incarceration
+
+`followup_period`     1-Year, 2-Years, or 3-Year check-up on participants
+
+`num_releases`        number of individuals released at a given year
+
+`rearrest_perc`       rearrest rate for individuals in study
+-------------------------------------------------------------------------------
+
+```{r}
+data <- read_csv("/Users/annieyu/Documents/ps270milestone4data.csv")
+
+widata <- data |>
+  select(year, followup_period, group,rearrest_perc) |>
+  pivot_wider(
+    names_from = group,
+    values_from = rearrest_perc)
+
+widataplot <- widata |>
+  ggplot() +
+  geom_smooth(aes(x = followup_period, 
+             y = Treated,
+             color = "Received Treatment Post-Release", group = 1),
+             method = "lm", se = FALSE) +
+  geom_smooth(aes(x = followup_period,
+                y = Control,
+                color = "No Treatment Post-Release", group = 1),
+              method = "lm", se = FALSE) +
+  scale_color_manual(values = c(
+    "Received Treatment Post-Release" = "#1f78b4",
+    "No Treatment Post-Release" = "#33a02c")) +
+  labs(
+    title = "Rearrest Rates Among WI DOC Substance Use Treatment Participants",
+    x = "Follow-up Periods",
+    y = "Rearrest Rate (%)",
+    color = "Sample Groups",
+    caption = "Data Source: doc.wi.gov/DataResearch/RecidivismReincarceration/Primary%20Program%20Report_2022_FINAL.pdf") +
+  ylim(10,60) +
+  theme_minimal() +
+    theme(plot.title = element_text(face = "bold"),
+          axis.title.x = element_text(size = 11, face = "bold"),
+          axis.title.y = element_text(size = 11, face = "bold"),
+           plot.caption = element_text(hjust = 0.5, size = 5))
+          
+            
+
+widataplot
+```
+
+ Here’s our primary programs report that we put out a few years ago. Substance Use Disorder (SUD) treatment, which would be given primarily to people with a drug history (though not necessarily those with a drug offense, and this would not include EVERY person with a drug history, just those who took the program) is included in this report.
+
 
