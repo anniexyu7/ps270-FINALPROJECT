@@ -1666,7 +1666,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
 <span>    <span class='st'>"sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"Substance Use Present"</span>,</span>
-<span>    <span class='st'>"no_sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"No Substance Use Present"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='st'>"no_sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"No Substance Use"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
 <span>    <span class='st'>"sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"#1f78b4"</span>,</span>
 <span>    <span class='st'>"no_sud_rearrest"</span> <span class='op'>=</span> <span class='st'>"#33a02c"</span><span class='op'>)</span>,</span>
@@ -1687,49 +1687,74 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p>The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison.</p>
 <h2 id="milestone-4">Milestone 4</h2>
-<table>
+<p>WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES</p>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 72%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th>WISCONSIN DOC DATASET</th>
-<th style="text-align: left;">: SUBSTANCE USE DISORDER PROGRAM REARREST RATES</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Name</td>
-<td style="text-align: left;">Description</td>
+<td style="text-align: left;"><code>year</code></td>
+<td style="text-align: left;">date of release from incarceration</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Treated</code></td>
+<td style="text-align: left;">Individuals with a drug history who participated in a substance use treatment program after release of incarceration</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Control</code></td>
+<td style="text-align: left;">Individuals with a drug history who did not participate in a substance use treatment program after release of incarceration</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>followup_period</code></td>
+<td style="text-align: left;">1-Year, 2-Year, or 3-Year post-release check-up on participants</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>num_releases</code></td>
+<td style="text-align: left;">number of individuals released at a given year</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>rearrest_perc</code></td>
+<td style="text-align: left;">rearrest rate for individuals in study</td>
 </tr>
 </tbody>
 </table>
-<p><code>year</code> date of release from incarceration</p>
-<p><code>Treated</code> Individuals with a drug history who participated in a substance use treatment program after release of incarceration</p>
-<p><code>Control</code> Individuals with a drug history who did not participate in a substance use treatment program after release of incarceration</p>
-<p><code>followup_period</code> 1-Year, 2-Years, or 3-Year check-up on participants</p>
-<p><code>num_releases</code> number of individuals released at a given year</p>
-<h2 id="rearrest_perc-rearrest-rate-for-individuals-in-study"><code>rearrest_perc</code> rearrest rate for individuals in study</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"/Users/annieyu/Documents/ps270milestone4data.csv"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>widata</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>followup_period</span>, <span class='va'>group</span>,<span class='va'>rearrest_perc</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>followup_period</span>, <span class='va'>group</span>, <span class='va'>rearrest_perc</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span></span>
 <span>    names_from <span class='op'>=</span> <span class='va'>group</span>,</span>
-<span>    values_from <span class='op'>=</span> <span class='va'>rearrest_perc</span><span class='op'>)</span></span>
+<span>    values_from <span class='op'>=</span> <span class='va'>rearrest_perc</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>widataplot</span> <span class='op'>&lt;-</span> <span class='va'>widata</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>, </span>
-<span>             y <span class='op'>=</span> <span class='va'>Treated</span>,</span>
-<span>             color <span class='op'>=</span> <span class='st'>"Received Treatment Post-Release"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
-<span>             method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>,</span>
-<span>                y <span class='op'>=</span> <span class='va'>Control</span>,</span>
-<span>                color <span class='op'>=</span> <span class='st'>"No Treatment Post-Release"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span>                  y <span class='op'>=</span> <span class='va'>Treated</span>,</span>
+<span>                  color <span class='op'>=</span> <span class='st'>"Received Treatment Post-Release"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
 <span>              method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>,</span>
+<span>                  y <span class='op'>=</span> <span class='va'>Control</span>,</span>
+<span>                  color <span class='op'>=</span> <span class='st'>"No Treatment Post-Release"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
+<span>              method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>,</span>
+<span>                  y <span class='op'>=</span> <span class='va'>Total</span>,</span>
+<span>                  color <span class='op'>=</span> <span class='st'>"Total Rearrests in WI"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, </span>
+<span>                  method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
 <span>    <span class='st'>"Received Treatment Post-Release"</span> <span class='op'>=</span> <span class='st'>"#1f78b4"</span>,</span>
-<span>    <span class='st'>"No Treatment Post-Release"</span> <span class='op'>=</span> <span class='st'>"#33a02c"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='st'>"No Treatment Post-Release"</span> <span class='op'>=</span> <span class='st'>"#33a02c"</span>,</span>
+<span>    <span class='st'>"Total Formerly-Incarcerated Population"</span> <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
 <span>    title <span class='op'>=</span> <span class='st'>"Rearrest Rates Among WI DOC Substance Use Treatment Participants"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"Follow-up Periods"</span>,</span>
@@ -1742,14 +1767,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>          axis.title.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>11</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span>,</span>
 <span>          axis.title.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>11</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span>,</span>
 <span>           plot.caption <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0.5</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
-<span>          </span>
 <span>            </span>
 <span></span>
 <span><span class='va'>widataplot</span></span></code></pre>
 </div>
 <p><img src="finalproject_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<p>Here’s our primary programs report that we put out a few years ago. Substance Use Disorder (SUD) treatment, which would be given primarily to people with a drug history (though not necessarily those with a drug offense, and this would not include EVERY person with a drug history, just those who took the program) is included in this report.</p>
+<p>The data source, the Wisconsin Department of Corrections Primary Programs Report includes data on individuals who entered substance use treatment after their release from incarceration, specifically within the state. Notably, this does not necessarily mean that those with a drug offense entered these programs and it also does not include every person with a drug history, just those included in the study.</p>
+<p>The relationship shown above indicates that those who participated in the program experienced, on average, less rearrests than those with similar drug histories but who did not participate in treatment. The black line provides insight into how this group compares to the overall rearrest rate. The plot emphasizes again, that those experiencing substance use have relatively higher rearrest rates than the formerly incarcerated population as a whole . The periods where the treatment group showed a smaller rearrest rate than that of the total provides valuable insight into the potential of treatment in reducing overall recidivism.</p>
+<p>In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

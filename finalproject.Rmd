@@ -98,7 +98,7 @@ dataplot <- ggplot(data_long,
   ylim(0,100) + 
   scale_x_discrete(labels = c(
     "sud_rearrest" = "Substance Use Present",
-    "no_sud_rearrest" = "No Substance Use Present")) +
+    "no_sud_rearrest" = "No Substance Use")) +
   scale_fill_manual(values = c(
     "sud_rearrest" = "#1f78b4",
     "no_sud_rearrest" = "#33a02c"),
@@ -124,44 +124,53 @@ The percentage of the sample of who did not show a presence of substance use on 
 
 
 WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES
--------------------- -----------------------------------------------------------
+
+-------------------- ----------------------------------------------------------
  Name                 Description
  -------------------- ----------------------------------------------------------
-`year`                date of release from incarceration
+ `year`               date of release from incarceration
 
-`Treated`             Individuals with a drug history who participated in a substance use treatment program after release of incarceration
+ `Treated`            Individuals with a drug history who participated in a substance use treatment program after release of                         incarceration
 
-`Control`             Individuals with a drug history who did not participate in a substance use treatment program after release of incarceration
+ `Control`            Individuals with a drug history who did not participate in a substance use treatment program after                             release of incarceration
 
-`followup_period`     1-Year, 2-Years, or 3-Year check-up on participants
+ `followup_period`    1-Year, 2-Year, or 3-Year post-release check-up on participants
 
-`num_releases`        number of individuals released at a given year
+ `num_releases`       number of individuals released at a given year
 
-`rearrest_perc`       rearrest rate for individuals in study
--------------------------------------------------------------------------------
+ `rearrest_perc`      rearrest rate for individuals in study
+ ------------------------------------------------------------------------------
+
+
 
 ```{r}
 data <- read_csv("/Users/annieyu/Documents/ps270milestone4data.csv")
 
 widata <- data |>
-  select(year, followup_period, group,rearrest_perc) |>
+  select(year, followup_period, group, rearrest_perc) |>
   pivot_wider(
     names_from = group,
-    values_from = rearrest_perc)
+    values_from = rearrest_perc) |>
+  drop_na()
 
 widataplot <- widata |>
   ggplot() +
-  geom_smooth(aes(x = followup_period, 
-             y = Treated,
-             color = "Received Treatment Post-Release", group = 1),
-             method = "lm", se = FALSE) +
   geom_smooth(aes(x = followup_period,
-                y = Control,
-                color = "No Treatment Post-Release", group = 1),
+                  y = Treated,
+                  color = "Received Treatment Post-Release", group = 1),
               method = "lm", se = FALSE) +
+  geom_smooth(aes(x = followup_period,
+                  y = Control,
+                  color = "No Treatment Post-Release", group = 1),
+              method = "lm", se = FALSE) +
+  geom_smooth(aes(x = followup_period,
+                  y = Total,
+                  color = "Total Rearrests in WI", group = 1), 
+                  method = "lm", se = FALSE) +
   scale_color_manual(values = c(
     "Received Treatment Post-Release" = "#1f78b4",
-    "No Treatment Post-Release" = "#33a02c")) +
+    "No Treatment Post-Release" = "#33a02c",
+    "Total Formerly-Incarcerated Population" = "black")) +
   labs(
     title = "Rearrest Rates Among WI DOC Substance Use Treatment Participants",
     x = "Follow-up Periods",
@@ -174,12 +183,14 @@ widataplot <- widata |>
           axis.title.x = element_text(size = 11, face = "bold"),
           axis.title.y = element_text(size = 11, face = "bold"),
            plot.caption = element_text(hjust = 0.5, size = 5))
-          
             
 
 widataplot
 ```
+The data source, the Wisconsin Department of Corrections Primary Programs Report includes data on individuals who entered substance use treatment after their release from incarceration, specifically within the state. Notably, this does not necessarily mean that those with a drug offense entered these programs and it also does not include every person with a drug history, just those included in the study. 
 
- Here’s our primary programs report that we put out a few years ago. Substance Use Disorder (SUD) treatment, which would be given primarily to people with a drug history (though not necessarily those with a drug offense, and this would not include EVERY person with a drug history, just those who took the program) is included in this report.
+The relationship shown above indicates that those who participated in the program experienced, on average, less rearrests than those with similar drug histories but who did not participate in treatment. The black line provides insight into how this group compares to the overall rearrest rate. The plot emphasizes again, that those experiencing substance use have relatively higher rearrest rates than the formerly incarcerated population as a whole . The periods where the treatment group showed a smaller rearrest rate than that of the total provides valuable insight into the potential of treatment in reducing overall recidivism. 
+
+In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods. 
 
 
