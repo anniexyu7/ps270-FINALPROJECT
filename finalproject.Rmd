@@ -136,7 +136,7 @@ WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES
 
  `followup_period`    1-Year, 2-Year, or 3-Year post-release check-up on participants
 
- `num_releases`       number of individuals released at a given year
+ `num_releases`       number of individuals in the study released at a given year
 
  `rearrest_perc`      rearrest rate for individuals in study
  ------------------------------------------------------------------------------
