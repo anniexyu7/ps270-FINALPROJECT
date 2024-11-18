@@ -1,0 +1,196 @@
+---
+title: "PS270 Final Project"
+author: "Annie Yu"
+description: "My final project"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+
+## Project thoughts
+
+I am interested in exploring data related to the relationship between the likelihood of recidivism and the presence of substance use.  
+
+## Milestone 2
+
+My research question: How does the presence of substance use affect the likelihood of recidivism after incarceration?
+
+Hypothesis: The presence of substance use increases the likelihood of recidivism in Wisconsin due to the cyclical nature of addiction, isolation/difficulty reengaging with society, lack of rehabilitation treatment centers within jail/prison, and punitive nature of sentencing for drug-related crimes.
+
+The primary explanatory variable is the presence of substance use in an individual's life. This can be measured during the screening and assessment process of intake for correctional facilities, drug testing, self-reported surveys, and medical records. These records alone will show variation among the sample, because those incarcerated now or in the past have different histories with substance use along with varying levels of severity when it comes to disorders. This approach must be longitudinal, because we must see changes or lack of changes in substance use over the span of their life before and during incarceration, along with the three years following their release. That way, we can see at what points in time substance use was at its peak in relation to their criminal behavior. 
+
+The outcome variable of interest is the rate of recidivism for each individual. This is typically measured by the number of re-arrests, re-convictions, and re-incarcerations that occur within three years of being released from jail/prison, including those released on extended supervision/parole. This data is typically public information. 
+
+One observed pattern in the data that would provide support for my hypothesis is higher recidivism rates among those struggling with one or more substance use disorders. 
+
+An observed pattern that would disprove my hypothesis is higher recidivism rates among those without the presence of substance use or those with relatively low levels of substance use. This would mean that substance use is not a causal indicator of high recidivism and that there is a confounding variable that has a larger effect on the likelihood that an individual will re-offend. For instance, mental illness, employment, environment, housing, education, etc. 
+
+## Milestone 3
+
+-------------------- -----------------------------------------------------------
+ Name                 Description
+ -------------------- ----------------------------------------------------------
+ `num_male`           number of males in the full sample
+
+ `num_females`        number of females in the full sample
+
+ `white`              number of racially/ethnically White individuals
+
+ `black`              number of racially/ethnically Black individuals
+ 
+ `hispanic`           number of racially/ethnically Hispanic individuals
+ 
+ `single`             number of individuals whose marital status is single
+ 
+ `married `           number of individuals whose marital status is married
+ 
+ `divorced`           number of individuals whose marital status is divorced
+ 
+ `separated`          number of individuals whose marital status is separated
+ 
+ `widowed`            number of individuals whose marital status is widowed
+ 
+ `some_school`        number of individuals who have completed some education
+ 
+ `hs_grad`            number of individuals who have completed high school
+ 
+ `some_col`           number of individuals who have completed some college
+ 
+ `sud_or`             percentage of sample who have shown a presence of substance use on release of incarceration
+ 
+ `no_sud_or`          percentage of sample who have not shown a presence of substance use on release of incarceration
+
+ `sud_rearrest`       percentage of sample who have shown a presence of substance use and have gotten rearrested within 36 months of release
+ 
+ `no_sud_rearrest`    percentage of sample who have not shown a presence of substance use and have gotten rearrested within 36 months of release
+ 
+--------------------------------------------------------------------------------
+
+```{r}
+library(tidyverse)
+library(readr)
+library(ggplot2)
+```
+
+
+```{r}
+data <- read_csv("/Users/annieyu/Documents/finalprojectdata.csv")
+
+data_long <- data |>
+  select(sud_rearrest, no_sud_rearrest) |>
+  pivot_longer(
+    cols = sud_rearrest : no_sud_rearrest,
+    names_to = "variable",
+    values_to = "value")
+
+dataplot <- ggplot(data_long, 
+                   aes(x = variable,
+                       y = value,
+                       fill = variable)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Rearrests Among Those With/Without Presence of Substance Use", 
+       x = "Sample Groups", 
+       y = "Rearrest Rate (%)",
+       caption = "Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders ",
+       fill = "Sample Groups") +
+  ylim(0,100) + 
+  scale_x_discrete(labels = c(
+    "sud_rearrest" = "Substance Use Present",
+    "no_sud_rearrest" = "No Substance Use")) +
+  scale_fill_manual(values = c(
+    "sud_rearrest" = "#1f78b4",
+    "no_sud_rearrest" = "#33a02c"),
+    labels = c(
+      "sud_rearrest" = "Presence of Substance Use On Release",
+      "no_sud_rearrest" = "No Presence of Subtance Use On Release")) +
+  theme_minimal() +
+  theme(panel.background = element_blank(),
+        plot.caption = element_text(hjust = 0.1, size = 5),
+        plot.title = element_text(size = 14, face = "bold", hjust = 0.1),
+    axis.title = element_text(size = 14, face = "bold")
+  )
+
+
+dataplot
+```
+
+
+The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison. 
+
+
+## Milestone 4
+
+
+WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES
+
+-------------------- ----------------------------------------------------------
+ Name                 Description
+ -------------------- ----------------------------------------------------------
+ `year`               date of release from incarceration
+
+ `Treated`            Individuals with a drug history who participated in a substance use treatment program after release of                         incarceration
+
+ `Control`            Individuals with a drug history who did not participate in a substance use treatment program after                             release of incarceration
+
+ `followup_period`    1-Year, 2-Year, or 3-Year post-release check-up on participants
+
+ `num_releases`       number of individuals in the study released at a given year
+
+ `rearrest_perc`      rearrest rate for individuals in study
+ ------------------------------------------------------------------------------
+
+
+
+```{r}
+data <- read_csv("/Users/annieyu/Documents/ps270milestone4data.csv")
+
+widata <- data |>
+  select(year, followup_period, group, rearrest_perc) |>
+  pivot_wider(
+    names_from = group,
+    values_from = rearrest_perc) |>
+  drop_na()
+
+widataplot <- widata |>
+  ggplot() +
+  geom_smooth(aes(x = followup_period,
+                  y = Treated,
+                  color = "Received Treatment Post-Release", group = 1),
+              method = "lm", se = FALSE) +
+  geom_smooth(aes(x = followup_period,
+                  y = Control,
+                  color = "No Treatment Post-Release", group = 1),
+              method = "lm", se = FALSE) +
+  geom_smooth(aes(x = followup_period,
+                  y = Total,
+                  color = "Total Rearrests in WI", group = 1), 
+                  method = "lm", se = FALSE) +
+  scale_color_manual(values = c(
+    "Received Treatment Post-Release" = "#1f78b4",
+    "No Treatment Post-Release" = "#33a02c",
+    "Total Formerly-Incarcerated Population" = "black")) +
+  labs(
+    title = "Rearrest Rates Among WI DOC Substance Use Treatment Participants",
+    x = "Follow-up Periods",
+    y = "Rearrest Rate (%)",
+    color = "Sample Groups",
+    caption = "Data Source: doc.wi.gov/DataResearch/RecidivismReincarceration/Primary%20Program%20Report_2022_FINAL.pdf") +
+  ylim(10,60) +
+  theme_minimal() +
+    theme(plot.title = element_text(face = "bold"),
+          axis.title.x = element_text(size = 11, face = "bold"),
+          axis.title.y = element_text(size = 11, face = "bold"),
+           plot.caption = element_text(hjust = 0.5, size = 5))
+            
+
+widataplot
+```
+The data source, the Wisconsin Department of Corrections Primary Programs Report includes data on individuals who entered substance use treatment after their release from incarceration, specifically within the state. Notably, this does not necessarily mean that those with a drug offense entered these programs and it also does not include every person with a drug history, just those included in the study. 
+
+The relationship shown above indicates that those who participated in the program experienced, on average, less rearrests than those with similar drug histories but who did not participate in treatment. The black line provides insight into how this group compares to the overall rearrest rate. The plot emphasizes again, that those experiencing substance use have relatively higher rearrest rates than the formerly incarcerated population as a whole . The periods where the treatment group showed a smaller rearrest rate than that of the total provides valuable insight into the potential of treatment in reducing overall recidivism. 
+
+In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods. 
+
+
