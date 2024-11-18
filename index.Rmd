@@ -25,7 +25,7 @@ The outcome variable of interest is the rate of recidivism for each individual. 
 
 One observed pattern in the data that would provide support for my hypothesis is higher recidivism rates among those struggling with one or more substance use disorders. 
 
-An observed pattern that would disprove my hypothesis is higher recidivism rates among those without the presence of substance use or those with relatively low levels of substance use. This would mean that substance use is not a causal indicator of high recidivism and that there is a confounding variable that has a larger effect on the likelihood that an individual will re-offend. For instance, mental illness, employment, environment, housing, education, etc. 
+An observed pattern that would disprove my hypothesis is higher recidivism rates among those without the presence of substance use or those with relatively low levels of substance use. This would mean that substance use is not a causal indicator of high recidivism and that there is a confounding variable that has a larger effect on the likelihood that an individual will re-offend. For instance, mental illness, employment, environment, housing, education, etc.    
 
 ## Milestone 3
 
