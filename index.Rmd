@@ -191,6 +191,8 @@ The data source, the Wisconsin Department of Corrections Primary Programs Report
 
 The relationship shown above indicates that those who participated in the program experienced, on average, less rearrests than those with similar drug histories but who did not participate in treatment. The black line provides insight into how this group compares to the overall rearrest rate. The plot emphasizes again, that those experiencing substance use have relatively higher rearrest rates than the formerly incarcerated population as a whole . The periods where the treatment group showed a smaller rearrest rate than that of the total provides valuable insight into the potential of treatment in reducing overall recidivism. 
 
-In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods. 
+In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods.
+
+
 
 
