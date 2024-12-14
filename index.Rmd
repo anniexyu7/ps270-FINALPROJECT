@@ -35,11 +35,136 @@ discuss each category of crime and what each entails
 
 ## The Data 
 
-The first set of data comes from the New Survey of Prison Inmates Data Analysis Tool (SPI DAT) from the Bureau of Justice Statistics. It's a dynamic tool that allows public access to interact with data visualizations, with custom charts for a range of characteristics of incarceratied individuals in 2016. 
+To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders
+
+```{r}
+
+library(tidyverse) 
+library(infer) 
+
+data_1 <- read_csv("/Users/annieyu/Documents/finalprojectdata.csv")
+
+data_long <- data_1 |>
+  select(sud_rearrest, no_sud_rearrest) |>
+  pivot_longer(
+    cols = sud_rearrest : no_sud_rearrest,
+    names_to = "variable",
+    values_to = "value")
+
+dataplot <- ggplot(data_long, 
+                   aes(x = variable,
+                       y = value,
+                       fill = variable)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Rearrests Among Those With/Without Presence of Substance Use", 
+       x = "Sample Groups", 
+       y = "Rearrest Rate (%)",
+       caption = "Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders ",
+       fill = "Sample Groups") +
+  ylim(0,100) + 
+  scale_x_discrete(labels = c(
+    "sud_rearrest" = "Substance Use Present",
+    "no_sud_rearrest" = "No Substance Use")) +
+  scale_fill_manual(values = c(
+    "sud_rearrest" = "#1f78b4",
+    "no_sud_rearrest" = "#33a02c"),
+    labels = c(
+      "sud_rearrest" = "Presence of Substance Use On Release",
+      "no_sud_rearrest" = "No Presence of Subtance Use On Release")) +
+  theme_minimal() +
+  theme(panel.background = element_blank(),
+        plot.caption = element_text(hjust = 0.1, size = 5),
+        plot.title = element_text(size = 14, face = "bold", hjust = 0.1),
+    axis.title = element_text(size = 14, face = "bold")
+  )
+
+
+dataplot
+```
+
+The second set of data comes from the New Survey of Prison Inmates Data Analysis Tool (SPI DAT) from the Bureau of Justice Statistics. It's a dynamic tool that allows public access to interact with data visualizations, with custom charts for a range of characteristics of incarceratied individuals in 2016. 
+
+```{r}
+sud_by_offense <- read_csv("/Users/annieyu/Documents/ps270finalproject/sud_by_offense_2016.csv")
+
+off_data <- sud_by_offense |>
+  mutate(SUD = 
+           if_else( sud == "Yes", 1, 0))
+off_data
+
+off_data_plot <- off_data |>
+  ggplot(aes(x = offense_type,
+             y = Perc, 
+             fill = as.factor(SUD))) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("0" = "#1f78b4",
+                               "1" = "#33a02c"),
+                    labels = c("No SUD", "Yes SUD")) +
+  scale_x_discrete(labels = c(
+                               "drug" = "Drug",
+                               "other" = "Other",
+                               "property" = "Property",
+                               "public_order" = "Public Order",
+                               "violent" = "Violent")) +
+  ylim(0,100) +
+  labs(
+    title = "Types of Offenses and SUD Presence in Offenders",
+    x = "Type of Offense",
+    y = "Percentage of Offenses Committed",
+    fill = "Offender SUD Status") +
+ 
+  theme_minimal()
+
+off_data_plot
+```
+
+property crimes are more likely to be committed by those with a substance use disorder (2016). Are recidivism rates for those crimes statistically higher? 
+
+```{r}
+raoodata <- read_csv("/Users/annieyu/Documents/ps270finalproject/rearrest_by_original_offense.csv")
+raoodata
+
+raoodata_summary <- raoodata |>
+  summarize(
+    "Drug Offenses" = mean(total_recid_drug_perc * 100),
+    "Property Offenses" = mean(total_recid_prop_perc * 100),
+    "Public Order Offenses" = mean(total_recid_prop_perc * 100),
+    "Violent Crime Offenses" = mean(total_recid_vio_perc * 100)) |>
+  pivot_longer(
+    cols = everything(), 
+    names_to = "Offense Type", 
+    values_to = "Average Recidivism Rate (%)") |>
+  knitr::kable(digits = 2)
+raoodata_summary
 
 
 
+```
 
+this third visualization shows rearrest rates by original offense from a 3-year follow up study in 2000-2013 
+
+note --- the most common offenses in property offense is burglary-Biulding or Dwelling, Forgery-Uttering, Misappropriate ID info-Obtain Money, Theft-Movable Property =< $2,500, and Take and Drive Vehicle w/o consent. 
+
+Drug Offense: 
+possession of NArcotic Drugs
+Manufacture/Deliver Heroin <3g
+Possession of THC (2nd+ Offense)
+Possess w/Intent - THC (<= 200 grams)
+Manufacture/Deliver Cocain (<= 1g)
+
+Public Order Offense: 
+Operating While under the Influence (5th or 6th)
+Possession of Firearm by Felon
+Operating While Under the Influence (7th, 8th, or 9th)
+OWI (4th within 5 yrs)
+Bail Jumping - Felony
+
+Violent Offense: 
+2nd Degree Sexual Assault of Child
+Armed Robbery
+Substantial Battery-Intend Bodily Harm
+2nd Degree Recklessly Endangering Safety
+Battery 
 ## Results
 
 ## Summary
@@ -115,54 +240,6 @@ Hypothesis: The presence of substance use increases the likelihood of recidivism
  `no_sud_rearrest`    percentage of sample who have not shown a presence of substance use and have gotten rearrested within 36 months of release
  
 --------------------------------------------------------------------------------
-
-```{r}
-library(tidyverse)
-library(readr)
-library(ggplot2)
-```
-
-
-```{r}
-data <- read_csv("/Users/annieyu/Documents/finalprojectdata.csv")
-
-data_long <- data |>
-  select(sud_rearrest, no_sud_rearrest) |>
-  pivot_longer(
-    cols = sud_rearrest : no_sud_rearrest,
-    names_to = "variable",
-    values_to = "value")
-
-dataplot <- ggplot(data_long, 
-                   aes(x = variable,
-                       y = value,
-                       fill = variable)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Rearrests Among Those With/Without Presence of Substance Use", 
-       x = "Sample Groups", 
-       y = "Rearrest Rate (%)",
-       caption = "Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders ",
-       fill = "Sample Groups") +
-  ylim(0,100) + 
-  scale_x_discrete(labels = c(
-    "sud_rearrest" = "Substance Use Present",
-    "no_sud_rearrest" = "No Substance Use")) +
-  scale_fill_manual(values = c(
-    "sud_rearrest" = "#1f78b4",
-    "no_sud_rearrest" = "#33a02c"),
-    labels = c(
-      "sud_rearrest" = "Presence of Substance Use On Release",
-      "no_sud_rearrest" = "No Presence of Subtance Use On Release")) +
-  theme_minimal() +
-  theme(panel.background = element_blank(),
-        plot.caption = element_text(hjust = 0.1, size = 5),
-        plot.title = element_text(size = 14, face = "bold", hjust = 0.1),
-    axis.title = element_text(size = 14, face = "bold")
-  )
-
-
-dataplot
-```
 
 
 The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison. 
