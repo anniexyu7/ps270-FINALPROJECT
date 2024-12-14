@@ -13,8 +13,6 @@ Mass incarceration and high recidivism rates have defined the American criminal 
 
 Because co-occurring disorders are common, it is difficult to isolate a control group of inmates who have never struggled with substance use and are honest about it. It is even harder to follow this sample across an extended period of time to determine if they re-offended or if they have introduced drugs into their lifestyles. This report seeks to answer the question: how does recidivism vary among those who experience substance use? Further, how does one's original offense affect their likelihood of recidivism? I take a different route in examining the relationship between substance use and recidivism by focusing on specific crime categories—violent, property, drug, and public order offenses—then analyzing how substance use trends within these categories relate to recidivism. 
 
-[explain why these options, not white-collar, organized, or victimless crimes] 
-
 My hypothesis assumes that substance use is an underlying mechanism that influences what crime an individual is likely to commit and therefore how likely recidivism is for them. I come to this conclusion by taking into the lifelong ramifications that substance use has on an individual and its interconnected character that affects all aspects of an individual: physical health, mental health, socioeconomic tendancies, behavior, and cognition. Therefore, I predict that those who struggle with substance use are more likely to commit crimes that are likely to be re-offended, resulting in higher rearrest, reincarceration, and reconviction rates of individuals with problematic substance use. 
 
 The primary explanatory variable is the presence of substance use in an individual's life. This can be measured during the screening and assessment process of intake for correctional facilities, drug testing, self-reported surveys, and medical records. These records alone will show variation among the sample, because those incarcerated now or in the past have different histories with substance use along with varying levels of severity when it comes to disorders. This approach must be longitudinal, because we must see changes or lack of changes in substance use over the span of their life before and during incarceration, along with the three years following their release. That way, we can see at what points in time substance use was at its peak in relation to their criminal behavior. 
@@ -25,17 +23,11 @@ One observed pattern in the data that would provide support for my hypothesis is
 
 An observed pattern that would disprove my hypothesis is higher recidivism rates among those without the presence of substance use or those with relatively low levels of substance use. This would mean that substance use is not a causal indicator of high recidivism and that there is a confounding variable that has a larger effect on the likelihood that an individual will re-offend. For instance, mental illness, employment, environment, housing, education, etc.  
 
-
-discuss each category of crime and what each entails
-1. violent
-2. property
-3. white-collar
-4. organized
-5. consensual/victimless
-
 ## The Data 
 
-To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders
+To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. The independent, or explanatory variable, the presence of substance use, has been measured using 36 months of postrelease records for New Jersey state inmates. The dependent, or outcome, variable has also been measured by using government clinical records. Clinical records has multiple points of sources, likely a combination of screenings, clinical assessments, and documentation from correctional facilities. Statistical analysis also aided the process of organizing the data. 
+
+Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders
 
 ```{r}
 
@@ -56,12 +48,12 @@ dataplot <- ggplot(data_long,
                        y = value,
                        fill = variable)) +
   geom_bar(stat = "identity") +
-  labs(title = "Rearrests Among Those With/Without Presence of Substance Use", 
+  labs(title = "Figure 1: Rearrests Among Those With/Without Presence of Substance Use", 
        x = "Sample Groups", 
        y = "Rearrest Rate (%)",
        caption = "Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders ",
        fill = "Sample Groups") +
-  ylim(0,100) + 
+  ylim(0,80) + 
   scale_x_discrete(labels = c(
     "sud_rearrest" = "Substance Use Present",
     "no_sud_rearrest" = "No Substance Use")) +
@@ -75,14 +67,16 @@ dataplot <- ggplot(data_long,
   theme(panel.background = element_blank(),
         plot.caption = element_text(hjust = 0.1, size = 5),
         plot.title = element_text(size = 14, face = "bold", hjust = 0.1),
-    axis.title = element_text(size = 14, face = "bold")
+    axis.title = element_text(size = 12, face = "bold")
   )
 
 
 dataplot
 ```
 
-The second set of data comes from the New Survey of Prison Inmates Data Analysis Tool (SPI DAT) from the Bureau of Justice Statistics. It's a dynamic tool that allows public access to interact with data visualizations, with custom charts for a range of characteristics of incarceratied individuals in 2016. 
+## Results
+
+The second set of data comes from the New Survey of Prison Inmates Data Analysis Tool (SPI DAT) from the Bureau of Justice Statistics. It's a dynamic tool that allows public access to interact with data visualizations, with custom charts for a range of characteristics of incarcerated individuals in 2016. Figure 2  
 
 ```{r}
 sud_by_offense <- read_csv("/Users/annieyu/Documents/ps270finalproject/sud_by_offense_2016.csv")
@@ -117,8 +111,7 @@ off_data_plot <- off_data |>
 
 off_data_plot
 ```
-
-property crimes are more likely to be committed by those with a substance use disorder (2016). Are recidivism rates for those crimes statistically higher? 
+### Regression 
 
 ```{r}
 raoodata <- read_csv("/Users/annieyu/Documents/ps270finalproject/rearrest_by_original_offense.csv")
@@ -128,18 +121,105 @@ raoodata_summary <- raoodata |>
   summarize(
     "Drug Offenses" = mean(total_recid_drug_perc * 100),
     "Property Offenses" = mean(total_recid_prop_perc * 100),
-    "Public Order Offenses" = mean(total_recid_prop_perc * 100),
+    "Public Order Offenses" = mean(total_recid_pub_perc * 100),
     "Violent Crime Offenses" = mean(total_recid_vio_perc * 100)) |>
   pivot_longer(
     cols = everything(), 
-    names_to = "Offense Type", 
-    values_to = "Average Recidivism Rate (%)") |>
-  knitr::kable(digits = 2)
-raoodata_summary
+    names_to = "offense_type", 
+    values_to = "rearrest_rate")
 
+raoodata_sum_table <- raoodata_summary |>
+  knitr::kable(digits = 2, caption = "Average Rearrest Rates by Offense Type")
+raoodata_sum_table
+```
+### coefficients 
+
+```{r}
+rearrest_long <- raoodata |>
+  pivot_longer(
+    cols = starts_with("total_recid"),
+    names_to = "offense_type",
+    values_to = "rearrest_rate") |>
+  mutate(crime_type = case_when(
+    offense_type == "total_recid_drug_perc" ~"Drug",
+    offense_type == "total_recid_prop_perc" ~ "Property",
+    offense_type == "total_recid_pub_perc" ~ "Public Order",
+    offense_type == "total_recid_vio_perc" ~ "Violent"),
+    control_group = if_else(
+      offense_type == "Violent", 1, 0))
+rearrest_long
+
+rearrest_long_reg <- lm(rearrest_rate ~ crime_type, data = rearrest_long)
+summary(regression_model)
+```
+Bootstrapping for p-value
+```{r}
+null_dist <- rearrest_long |>
+  specify(rearrest_rate ~ crime_type) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "F")
+
+observed_stat <- rearrest_long |>
+  specify(rearrest_rate ~ crime_type) |>
+  calculate(stat = "F")
+
+ate_ci_95 <- null_dist |>
+  get_confidence_interval(level = 0.95, type = "percentile")
+ate_ci_95
+
+rearrest_pval <- null_dist |>
+  get_p_value(obs_stat = observed_stat, direction = "greater")
+rearrest_pval
+```
+
+
+raoodata_summary <- raoodata_summary |>
+  mutate("Offense Type" = factor("Offense Type"))
+
+rearrest_reg_drug <- lm(total_recid_drug_perc ~ release_year, data = raoodata)
+rearrest_reg_drug
 
 
 ```
+
+
+```{r}
+reconvic_oo <- read_csv("/Users/annieyu/Documents/ps270finalproject/reconviction_by_original_offense.csv")
+
+rc_summary <- reconvic_oo |>
+  summarize(
+    "Drug Offenses" = mean(rc_rec_drug_perc * 100), 
+    "Property Offenses" = mean(rc_rec_prop_perc * 100),
+    "Public Order Offenses" = mean(rc_rec_pub_perc * 100),
+    "Violent Crime Offenses" = mean(rc_rec_vio_perc * 100)) |>
+  pivot_longer(
+    cols = everything(), 
+    names_to = "Offense Type", 
+    values_to = "Average Reconviction Rate 3-years Post-Release (%)") |>
+  knitr::kable(digits = 2)
+rc_summary
+```
+
+```{r}
+reincarc_oo <- read_csv("/Users/annieyu/Documents/ps270finalproject/reincarceration_by_original_offense.csv")
+reincarc_oo
+
+reincarc_summary <- reincarc_oo |>
+  summarize(
+    "Drug Offenses" = mean(rein_rec_drug_perc * 100), 
+    "Property Offenses" = mean(rein_rec_prop_perc * 100),
+    "Public Order Offenses" = mean(rein_rec_pub_perc * 100),
+    "Violent Crime Offenses" = mean(rein_rec_vio_perc * 100)) |>
+  pivot_longer(
+    cols = everything(), 
+    names_to = "Offense Type", 
+    values_to = "Average Reincarceration Rate 3-years Post-Release (%)") |>
+  knitr::kable(digits = 2)
+rc_summary
+
+```
+
 
 this third visualization shows rearrest rates by original offense from a 3-year follow up study in 2000-2013 
 
@@ -171,9 +251,6 @@ Battery
 
 
 limitations to analysis: lack of longitudinal data following individuals due to HIPPA, lack of knowledge of true nature fo substance use (what drugs are used the most and to what extent)
-
-
-
 
 
 
