@@ -1545,14 +1545,14 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="introduction">(1) Introduction</h2>
 <p>Mass incarceration and high recidivism rates have defined the American criminal justice system for decades. Expedited by the War on Drugs and perpetuated by the policies and stigmas surrounding incarcerated individuals post-release, it is pertinent to public health that the underlying mechanisms driving such a concern is better understood. Surprisingly, there is a lack of longitudinal research that specifically isolates the relationship between the presence of substance use and the likelihood of recidivism.</p>
-<p>Because co-occurring disorders are common, it is difficult to isolate a control group of inmates who have never struggled with substance use and are honest about it. It is even harder to follow this sample across an extended period of time to determine if they re-offended or if they have introduced drugs into their lifestyles. This report seeks to answer the question: how does recidivism vary among those who experience substance use? I take a different route in examining the relationship between substance use and recidivism by focusing on specific crime categories—violent, property, drug, and public order offenses—then analyzing how substance use trends within these categories relate to the tendency towards recidivism.</p>
+<p>Because co-occurring disorders are common, it is difficult to isolate a control group of inmates who have never struggled with substance use and are honest about it. It is even harder to follow this sample across an extended period of time to determine if they re-offended or if they have introduced drugs into their lifestyles. This report seeks to answer the question: how does recidivism vary among those who experience substance use? I take a different route in examining the relationship between substance use and recidivism by focusing on specific crime categories—violent, property, drug, and public order offenses—then analyzing how substance use trends within these categories relate to the tendency towards recidivism. These are the groupings of crime according to the Bureau of Justice Statistics.</p>
 <p>My hypothesis assumes that substance use is an underlying mechanism that influences what crime an individual is likely to commit and therefore how likely recidivism is for them. I come to this conclusion by taking into the lifelong ramifications that substance use has on an individual and its interconnected character that affects all aspects of an individual: physical health, mental health, socioeconomic tendencies, behavior, and cognition. Therefore, I predict that those who struggle with substance use are more likely to commit crimes that are likely to be re-offended, resulting in higher rearrest, reincarceration, and reconviction rates of individuals with problematic substance use.</p>
 <p>The primary explanatory variable is the presence of substance use in an individual’s life. This can be measured during the screening and assessment process of intake for correctional facilities, drug testing, self-reported surveys, and medical records. These records alone will show variation among the sample, because those incarcerated now or in the past have different histories with substance use along with varying levels of severity when it comes to disorders. This approach must be longitudinal, because we must see changes or lack of changes in substance use over the span of their life before and during incarceration, along with the three years following their release. That way, we can see at what points in time substance use was at its peak in relation to their criminal behavior.</p>
 <p>The outcome variable of interest is the rate of recidivism for each individual. This is typically measured by the number of re-arrests, re-convictions, and re-incarcerations that occur within three years of being released from jail/prison, including those released on extended supervision/parole. This data is typically public information.</p>
 <p>One observed pattern in the data that would provide support for my hypothesis is higher recidivism rates among those struggling with one or more substance use disorders.</p>
 <p>An observed pattern that would disprove my hypothesis is higher recidivism rates among those without the presence of substance use or those with relatively low levels of substance use. This would mean that substance use is not a causal indicator of high recidivism and that there is a confounding variable that has a larger effect on the likelihood that an individual will re-offend. For instance, mental illness, employment, environment, housing, education, etc.</p>
 <h2 id="data">(2) Data</h2>
-<p>To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. The independent, or explanatory variable, the presence of substance use, has been measured using 36 months of post-release records for New Jersey state inmates. Since this type of study uses data over time, it can be best classified as longitdinal and retrospective in nature. The dependent, or outcome, variable has also been measured by using government clinical records. Clinical records has multiple points of sources, likely a combination of screenings, clinical assessments, and documentation from correctional facilities. Statistical analysis also aided the process of organizing the data.</p>
+<p>To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. The independent, or explanatory variable, the presence of substance use, has been measured using 36 months of post-release records for New Jersey state inmates. Since this type of study uses data over time, it can be best classified as longitudinal and retrospective in nature. The dependent, or outcome, variable has also been measured by using government clinical records. Clinical records has multiple points of sources, likely a combination of screenings, clinical assessments, and documentation from correctional facilities. Statistical analysis also aided the process of organizing the data.</p>
 <p>Data source: Zgoba, K. M., Reeves, R., Tamburello, A., &amp; Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1600,7 +1600,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
-<h2 id="results">Results</h2>
+<h2 id="results">(3) Results</h2>
 <p>The second set of data in Figure 2 comes from the New Survey of Prison Inmates Data Analysis Tool (SPI DAT) from the Bureau of Justice Statistics. It’s a dynamic tool that allows public access to interact with data visualizations, with custom charts for a range of characteristics of incarcerated individuals in 2016. The data comes from a national survey of prisoners aged 18 or older in both state and federal correctional facilities. Prisoners with a substance use disorder (SUD) fulfill the criteria for the DSM-IV for either dependence or abuse of alcohol or drugs 12 months prior to incarceration.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1609,22 +1609,86 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span><span class='va'>off_data</span> <span class='op'>&lt;-</span> <span class='va'>sud_by_offense</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>SUD <span class='op'>=</span> </span>
 <span>           <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span> <span class='va'>sud</span> <span class='op'>==</span> <span class='st'>"Yes"</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>off_data</span></span></code></pre>
+<span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>off_data</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 10 × 7
-   Population              offense_type sud    Perc sd_of_perc
-   &lt;chr&gt;                   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;     
- 1 state_and_fed_prisoners violent      Yes    42.5 0.89%     
- 2 state_and_fed_prisoners violent      No     57.5 0.89%     
- 3 state_and_fed_prisoners property     Yes    57.5 1.33%     
- 4 state_and_fed_prisoners property     No     42.5 1.33%     
- 5 state_and_fed_prisoners drug         Yes    51.4 1.50%     
- 6 state_and_fed_prisoners drug         No     48.6 1.50%     
- 7 state_and_fed_prisoners public_order Yes    45.7 1.70%     
- 8 state_and_fed_prisoners public_order No     54.3 1.70%     
- 9 state_and_fed_prisoners other        Yes    23.3 5.66%     
-10 state_and_fed_prisoners other        No     76.7 5.66%     
-# ℹ 2 more variables: weighted_count_of_perc &lt;dbl&gt;, SUD &lt;dbl&gt;</code></pre>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 15%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 13%" />
+<col style="width: 27%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Population</th>
+<th style="text-align: left;">offense_type</th>
+<th style="text-align: left;">sud</th>
+<th style="text-align: right;">Perc</th>
+<th style="text-align: left;">sd_of_perc</th>
+<th style="text-align: right;">weighted_count_of_perc</th>
+<th style="text-align: right;">SUD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">state_and_fed_prisoners</td>
+<td style="text-align: left;">violent</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">42.5</td>
+<td style="text-align: left;">0.89%</td>
+<td style="text-align: right;">169354</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">state_and_fed_prisoners</td>
+<td style="text-align: left;">violent</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">57.5</td>
+<td style="text-align: left;">0.89%</td>
+<td style="text-align: right;">229396</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">state_and_fed_prisoners</td>
+<td style="text-align: left;">property</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">57.5</td>
+<td style="text-align: left;">1.33%</td>
+<td style="text-align: right;">87401</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">state_and_fed_prisoners</td>
+<td style="text-align: left;">property</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">42.5</td>
+<td style="text-align: left;">1.33%</td>
+<td style="text-align: right;">64580</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">state_and_fed_prisoners</td>
+<td style="text-align: left;">drug</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">51.4</td>
+<td style="text-align: left;">1.50%</td>
+<td style="text-align: right;">95817</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">state_and_fed_prisoners</td>
+<td style="text-align: left;">drug</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: right;">48.6</td>
+<td style="text-align: left;">1.50%</td>
+<td style="text-align: right;">90551</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>off_data_plot</span> <span class='op'>&lt;-</span> <span class='va'>off_data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>offense_type</span>,</span>
@@ -1651,14 +1715,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.background <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>,</span>
 <span>        plot.caption <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0.5</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,</span>
 <span>        plot.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>14</span>, face <span class='op'>=</span> <span class='st'>"bold"</span>, hjust <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span>,</span>
-<span>    axis.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>12</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>    axis.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>11</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>off_data_plot</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
+<p>This visualization suggests that property crimes are more likely to be committed by those with a substance use disorder than those without.</p>
 <p>Regression</p>
-<p>This third dataset comes from the Wisconsin Department of Corrections. The recidivism calculations of rearrest, reincarceration, and reconviction contain 3 components: report of release date, a 3-year follow-up period, and the documentation of a recidivism event. The sample is all persons released from prison in Wisconsin from 2000-2016.</p>
+<p>This third data data set comes from the Wisconsin Department of Corrections. The recidivism calculations of rearrests contain 3 components: report of release date, a 3-year follow-up period, and the documentation of a recidivism event. The sample is all persons released from prison in Wisconsin from 2000-2016.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>raoodata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"/Users/annieyu/Documents/ps270finalproject/rearrest_by_original_offense.csv"</span><span class='op'>)</span></span>
@@ -1690,7 +1755,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span></span>
 <span>    cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, </span>
 <span>    names_to <span class='op'>=</span> <span class='st'>"offense_type"</span>, </span>
-<span>    values_to <span class='op'>=</span> <span class='st'>"rearrest_rate"</span><span class='op'>)</span></span>
+<span>    values_to <span class='op'>=</span> <span class='st'>"rearrest_rate"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"Offense Type"</span> <span class='op'>=</span> <span class='va'>offense_type</span>,</span>
+<span>         <span class='st'>"Rearrest Rate"</span> <span class='op'>=</span> <span class='va'>rearrest_rate</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>raoodata_sum_table</span> <span class='op'>&lt;-</span> <span class='va'>raoodata_summary</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span>, caption <span class='op'>=</span> <span class='st'>"Average Rearrest Rates by Offense Type"</span><span class='op'>)</span></span>
@@ -1700,8 +1767,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <caption><span id="tab:unnamed-chunk-3">Table 1: </span>Average Rearrest Rates by Offense Type</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;">offense_type</th>
-<th style="text-align: right;">rearrest_rate</th>
+<th style="text-align: left;">Offense Type</th>
+<th style="text-align: right;">Rearrest Rate</th>
 </tr>
 </thead>
 <tbody>
@@ -1825,7 +1892,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </table>
 </div>
 <p>Bootstrapping Model</p>
-<p>As shown in the visualization, the bootstrapping model isn’t compatible with the data set, because the same size is not extensive enough to generate a solid null distribution. An F-statistic is being used instead of difference in proportions or difference in means, because I am trying to measure the variability between the rearrest rates of 4 types of crime. Additionally, I am trying to evaluate whether the difference in the average rearrest rates are statistically significant compared to the overall variability in the data. The dashed line shows the standard deviation of the distribution and the black line represents the density curve of the permutations.</p>
+<p>As shown in the visualization, the bootstrapping model isn’t very compatible with the data set, because the sample size is not extensive enough to generate a solid null distribution. An F-statistic is being used instead of difference in proportions or difference in means, because I am trying to measure the variability between the rearrest rates of 4 types of crime. Additionally, I am trying to evaluate whether the difference in the average rearrest rates are statistically significant compared to the overall variability in the data. The dashed line shows the standard deviation of the distribution and the black line represents the density curve of the permutations.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>null_dist</span> <span class='op'>&lt;-</span> <span class='va'>rearrest_long</span> <span class='op'>|&gt;</span></span>
@@ -1856,23 +1923,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.6822078</td>
+<td style="text-align: right;">0.8897167</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">2.5422035</td>
+<td style="text-align: right;">1.2145281</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">1.6375283</td>
+<td style="text-align: right;">0.7357562</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.7898275</td>
+<td style="text-align: right;">0.6511772</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">1.3246395</td>
+<td style="text-align: right;">0.1380635</td>
 </tr>
 </tbody>
 </table>
@@ -1903,8 +1970,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0.0739853</td>
-<td style="text-align: right;">3.268305</td>
+<td style="text-align: right;">0.0717668</td>
+<td style="text-align: right;">3.197876</td>
 </tr>
 </tbody>
 </table>
@@ -1939,7 +2006,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>    size <span class='op'>=</span> <span class='fl'>1</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
-<span>    title <span class='op'>=</span> <span class='st'>"Simulation-Based Null Distribution with Normal Curve"</span>,</span>
+<span>    title <span class='op'>=</span> <span class='st'>"Bootstrapping Null Distribution"</span>,</span>
 <span>    x <span class='op'>=</span> <span class='st'>"F-Statistic"</span>,</span>
 <span>    y <span class='op'>=</span> <span class='st'>"Density"</span></span>
 <span>  <span class='op'>)</span> <span class='op'>+</span></span>
@@ -2043,216 +2110,16 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tbody>
 </table>
 </div>
-<p>The regression table shows that when <span class="math inline">\(\alpha\)</span> = 0.05, property offenses significantly predict higher rearrest rates, with an increase of 12.31 percentage points compared to violent offenses. Violent offenses was used as a reference group, since it had the lowest rearrest rate of the 4 categories. Drug offenses and public order offenses also predict higher rearrest rates, but only with increases of 5.45 and 3.69 percentage points. This suggests that property offenses have the strongest association with rearrest rates among these four main crime categories. The p-value of &lt;0.001 means that we can reject the null hypothesis that there is no significant association one’s original offense of a property crime and the likelihood of rearrest within 3 years post-release.</p>
-<p>This analysis only shows a correlation, not a causal effect. Aspects like age, gender, race, socioeconomic status, etc. have not been accounted for because that information is not public information.</p>
-<p>ignore—————</p>
-<p>note — the most common offenses in property offense is burglary-Biulding or Dwelling, Forgery-Uttering, Misappropriate ID info-Obtain Money, Theft-Movable Property =&lt; $2,500, and Take and Drive Vehicle w/o consent.</p>
-<p>Drug Offense:
-possession of NArcotic Drugs
-Manufacture/Deliver Heroin &lt;3g
-Possession of THC (2nd+ Offense)
-Possess w/Intent - THC (&lt;= 200 grams)
-Manufacture/Deliver Cocain (&lt;= 1g)</p>
-<p>Public Order Offense:
-Operating While under the Influence (5th or 6th)
-Possession of Firearm by Felon
-Operating While Under the Influence (7th, 8th, or 9th)
-OWI (4th within 5 yrs)
-Bail Jumping - Felony</p>
-<p>Violent Offense:
-2nd Degree Sexual Assault of Child
-Armed Robbery
-Substantial Battery-Intend Bodily Harm
-2nd Degree Recklessly Endangering Safety
-Battery
-## Results</p>
-<hr />
-<h2 id="summary">Summary</h2>
-<p>1 paragraph (i) summarizing results and assessing the extent to which you find support for your hypothesis; (ii) describing limitations of the analysis and threats to inference (missing data, confounding, etc), and stating how you could improve your analysis if you had more time/money. (2pts)</p>
-<p>limitations to analysis: lack of longitudinal data following individuals due to HIPPA, lack of knowledge of true nature fo substance use (what drugs are used the most and to what extent)</p>
+<p>The regression table shows that when <span class="math inline">\(\alpha\)</span> = 0.05, property offenses significantly predict higher rearrest rates, with an increase of 12.31 percentage points compared to violent offenses. Violent offenses was used as a reference group, since it had the lowest rearrest rate of the 4 categories. Drug offenses and public order offenses also predict higher rearrest rates, but only with increases of 5.45 and 3.69 percentage points. This suggests that property offenses have the strongest association with rearrest rates among these four main crime categories. The p-value of &lt;0.001 means that we can reject the null hypothesis that there is no significant association between one’s original offense of a property crime and the likelihood of rearrest within 3 years post-release.</p>
+<p>This analysis only shows a correlation, not a causal effect. Demographic variables have not been accounted for because that information is not included in publicly available data.</p>
+<h2 id="conclusion">(4) Conclusion</h2>
+<p>This analysis provides some insight into what types of crime those with substance use disorders commit and if the type of crime committed has an effect on their likelihood of rearrest. I use violent crime as a reference group, since those with substance use disorders make up a smaller percentage of offenders compared to those without. This may have implications on the analysis, because it is not a perfect control group.</p>
+<p>I recognize that this analysis is very far from providing a causal explanation on the relationship between substance use and recidivism, but I believe it provides a unique perspective on the character of those within the criminal justice system who struggle with substance use. Although the regression points to the conclusion that those whose original offense was a property crime may have a higher likelihood of rearrest than those with different offenses, it doesn’t include substance use in the calculation. Rather, it is assumed the majority of people in the sample who commit property crimes are people with a SUD. Therefore, the hypothesis isn’t directly answered due to such limitations in the data. The largest obstacle in conducting this report is the lack of access to one comprehensive longitudinal data set that follows an individual after release from incarceration. There are only bits and pieces of data available to the public for confidential reasons. Confounding variables such as age, gender, race, prior offenses, sexuality, socioeconomic status, etc. are not accounted for. Following the intersectional framework of sociology, these overlapping identities are very important to how one experiences daily life and what disadvantages they may be prone to. My report merely highlights the correlation that property crimes are more likely to be committed by those with a substance use disorder and those whose original offense is a property crime are more likely to be rearrested 3 years post-release.</p>
+<p>Another important consideration is that this analysis excludes the other two categories of recidivism: reincarceration and reconviction. I chose to use rearrests as the primary baseline of data, because a rearrest is simply the arrest of an individual who has committed a criminal act. Reincarceration and reconviction data provide insight into what happens to the individual after charges are made. These two factors are not incredibly important to the hypothesis, because whether or not someone is reincarcerated and reconvicted depends on a multitude of variables that are difficult to measure: the discretion of the prosecutor, law enforcement, judge, and probation/parole officer (if applicable), the rehabilitation programs available in the district, biases, etc. The important matter is whether or not the individual has behaved in a way that warrants a documented arrest.</p>
 <h2 id="works-cited">Works Cited</h2>
-<p><a href="https://www.unodc.org/documents/ungass2016/Contributions/Civil/DrugPolicyAlliance/DPA_Fact_Sheet_Drug_War_Mass_Incarceration_and_Race_June2015.pdf" class="uri">https://www.unodc.org/documents/ungass2016/Contributions/Civil/DrugPolicyAlliance/DPA_Fact_Sheet_Drug_War_Mass_Incarceration_and_Race_June2015.pdf</a></p>
 <p><a href="https://spi-data.bjs.ojp.gov/" class="uri">https://spi-data.bjs.ojp.gov/</a></p>
-<h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in exploring data related to the relationship between the likelihood of recidivism and the presence of substance use.</p>
-<h2 id="milestone-2">Milestone 2</h2>
-<p>My research question: How does the presence of substance use affect the likelihood of recidivism after incarceration?</p>
-<p>Hypothesis: The presence of substance use increases the likelihood of recidivism due to the cyclical nature of addiction, isolation/difficulty reengaging with society, lack of rehabilitation treatment centers within jail/prison, and punitive nature of sentencing for drug-related crimes.</p>
-<h2 id="milestone-3">Milestone 3</h2>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 72%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>num_male</code></td>
-<td style="text-align: left;">number of males in the full sample</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>num_females</code></td>
-<td style="text-align: left;">number of females in the full sample</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>white</code></td>
-<td style="text-align: left;">number of racially/ethnically White individuals</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>black</code></td>
-<td style="text-align: left;">number of racially/ethnically Black individuals</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>hispanic</code></td>
-<td style="text-align: left;">number of racially/ethnically Hispanic individuals</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>single</code></td>
-<td style="text-align: left;">number of individuals whose marital status is single</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>married</code></td>
-<td style="text-align: left;">number of individuals whose marital status is married</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>divorced</code></td>
-<td style="text-align: left;">number of individuals whose marital status is divorced</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>separated</code></td>
-<td style="text-align: left;">number of individuals whose marital status is separated</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>widowed</code></td>
-<td style="text-align: left;">number of individuals whose marital status is widowed</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>some_school</code></td>
-<td style="text-align: left;">number of individuals who have completed some education</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>hs_grad</code></td>
-<td style="text-align: left;">number of individuals who have completed high school</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>some_col</code></td>
-<td style="text-align: left;">number of individuals who have completed some college</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>sud_or</code></td>
-<td style="text-align: left;">percentage of sample who have shown a presence of substance use on release of incarceration</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>no_sud_or</code></td>
-<td style="text-align: left;">percentage of sample who have not shown a presence of substance use on release of incarceration</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>sud_rearrest</code></td>
-<td style="text-align: left;">percentage of sample who have shown a presence of substance use and have gotten rearrested within 36 months of release</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>no_sud_rearrest</code></td>
-<td style="text-align: left;">percentage of sample who have not shown a presence of substance use and have gotten rearrested within 36 months of release</td>
-</tr>
-</tbody>
-</table>
-<p>The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison.</p>
-<h2 id="milestone-4">Milestone 4</h2>
-<p>WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES</p>
-<table style="width:99%;">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 72%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Name</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>year</code></td>
-<td style="text-align: left;">date of release from incarceration</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>Treated</code></td>
-<td style="text-align: left;">Individuals with a drug history who participated in a substance use treatment program after release of incarceration</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>Control</code></td>
-<td style="text-align: left;">Individuals with a drug history who did not participate in a substance use treatment program after release of incarceration</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>followup_period</code></td>
-<td style="text-align: left;">1-Year, 2-Year, or 3-Year post-release check-up on participants</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>num_releases</code></td>
-<td style="text-align: left;">number of individuals in the study released at a given year</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>rearrest_perc</code></td>
-<td style="text-align: left;">rearrest rate for individuals in study</td>
-</tr>
-</tbody>
-</table>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"/Users/annieyu/Documents/ps270milestone4data.csv"</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>widata</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>year</span>, <span class='va'>followup_period</span>, <span class='va'>group</span>, <span class='va'>rearrest_perc</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span></span>
-<span>    names_from <span class='op'>=</span> <span class='va'>group</span>,</span>
-<span>    values_from <span class='op'>=</span> <span class='va'>rearrest_perc</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>widataplot</span> <span class='op'>&lt;-</span> <span class='va'>widata</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>,</span>
-<span>                  y <span class='op'>=</span> <span class='va'>Treated</span>,</span>
-<span>                  color <span class='op'>=</span> <span class='st'>"Received Treatment Post-Release"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
-<span>              method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>,</span>
-<span>                  y <span class='op'>=</span> <span class='va'>Control</span>,</span>
-<span>                  color <span class='op'>=</span> <span class='st'>"No Treatment Post-Release"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,</span>
-<span>              method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>followup_period</span>,</span>
-<span>                  y <span class='op'>=</span> <span class='va'>Total</span>,</span>
-<span>                  color <span class='op'>=</span> <span class='st'>"Total Rearrests in WI"</span>, group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, </span>
-<span>                  method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_color_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
-<span>    <span class='st'>"Received Treatment Post-Release"</span> <span class='op'>=</span> <span class='st'>"#1f78b4"</span>,</span>
-<span>    <span class='st'>"No Treatment Post-Release"</span> <span class='op'>=</span> <span class='st'>"#33a02c"</span>,</span>
-<span>    <span class='st'>"Total Formerly-Incarcerated Population"</span> <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span></span>
-<span>    title <span class='op'>=</span> <span class='st'>"Rearrest Rates Among WI DOC Substance Use Treatment Participants"</span>,</span>
-<span>    x <span class='op'>=</span> <span class='st'>"Follow-up Periods"</span>,</span>
-<span>    y <span class='op'>=</span> <span class='st'>"Rearrest Rate (%)"</span>,</span>
-<span>    color <span class='op'>=</span> <span class='st'>"Sample Groups"</span>,</span>
-<span>    caption <span class='op'>=</span> <span class='st'>"Data Source: doc.wi.gov/DataResearch/RecidivismReincarceration/Primary%20Program%20Report_2022_FINAL.pdf"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>60</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>plot.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span>,</span>
-<span>          axis.title.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>11</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span>,</span>
-<span>          axis.title.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>11</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span>,</span>
-<span>           plot.caption <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>hjust <span class='op'>=</span> <span class='fl'>0.5</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
-<span>            </span>
-<span></span>
-<span><span class='va'>widataplot</span></span></code></pre>
-</div>
-<p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
-</div>
-<p>The data source, the Wisconsin Department of Corrections Primary Programs Report includes data on individuals who entered substance use treatment after their release from incarceration, specifically within the state. Notably, this does not necessarily mean that those with a drug offense entered these programs and it also does not include every person with a drug history, just those included in the study.</p>
-<p>The relationship shown above indicates that those who participated in the program experienced, on average, less rearrests than those with similar drug histories but who did not participate in treatment. The black line provides insight into how this group compares to the overall rearrest rate. The plot emphasizes again, that those experiencing substance use have relatively higher rearrest rates than the formerly incarcerated population as a whole . The periods where the treatment group showed a smaller rearrest rate than that of the total provides valuable insight into the potential of treatment in reducing overall recidivism.</p>
-<p>In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="https://doc.wi.gov/DataResearch/RecidivismReincarceration/0821RecidivismAfterReleaseFromPrison.pdf" class="uri">https://doc.wi.gov/DataResearch/RecidivismReincarceration/0821RecidivismAfterReleaseFromPrison.pdf</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

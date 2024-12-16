@@ -11,7 +11,7 @@ output:
 
 Mass incarceration and high recidivism rates have defined the American criminal justice system for decades. Expedited by the War on Drugs and perpetuated by the policies and stigmas surrounding incarcerated individuals post-release, it is pertinent to public health that the underlying mechanisms driving such a concern is better understood. Surprisingly, there is a lack of longitudinal research that specifically isolates the relationship between the presence of substance use and the likelihood of recidivism.
 
-Because co-occurring disorders are common, it is difficult to isolate a control group of inmates who have never struggled with substance use and are honest about it. It is even harder to follow this sample across an extended period of time to determine if they re-offended or if they have introduced drugs into their lifestyles. This report seeks to answer the question: how does recidivism vary among those who experience substance use? I take a different route in examining the relationship between substance use and recidivism by focusing on specific crime categories—violent, property, drug, and public order offenses—then analyzing how substance use trends within these categories relate to the tendency towards recidivism. 
+Because co-occurring disorders are common, it is difficult to isolate a control group of inmates who have never struggled with substance use and are honest about it. It is even harder to follow this sample across an extended period of time to determine if they re-offended or if they have introduced drugs into their lifestyles. This report seeks to answer the question: how does recidivism vary among those who experience substance use? I take a different route in examining the relationship between substance use and recidivism by focusing on specific crime categories—violent, property, drug, and public order offenses—then analyzing how substance use trends within these categories relate to the tendency towards recidivism. These are the groupings of crime according to the Bureau of Justice Statistics. 
 
 My hypothesis assumes that substance use is an underlying mechanism that influences what crime an individual is likely to commit and therefore how likely recidivism is for them. I come to this conclusion by taking into the lifelong ramifications that substance use has on an individual and its interconnected character that affects all aspects of an individual: physical health, mental health, socioeconomic tendencies, behavior, and cognition. Therefore, I predict that those who struggle with substance use are more likely to commit crimes that are likely to be re-offended, resulting in higher rearrest, reincarceration, and reconviction rates of individuals with problematic substance use. 
 
@@ -25,7 +25,7 @@ An observed pattern that would disprove my hypothesis is higher recidivism rates
 
 ## (2) Data 
 
-To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. The independent, or explanatory variable, the presence of substance use, has been measured using 36 months of post-release records for New Jersey state inmates. Since this type of study uses data over time, it can be best classified as longitdinal and retrospective in nature. The dependent, or outcome, variable has also been measured by using government clinical records. Clinical records has multiple points of sources, likely a combination of screenings, clinical assessments, and documentation from correctional facilities. Statistical analysis also aided the process of organizing the data. 
+To give a general idea of the relationship between substance users and the likelihood of recidivism, figure 1 reflects the disparity between the rearrest rates of those without the presence of substance use compared to those who do. The independent, or explanatory variable, the presence of substance use, has been measured using 36 months of post-release records for New Jersey state inmates. Since this type of study uses data over time, it can be best classified as longitudinal and retrospective in nature. The dependent, or outcome, variable has also been measured by using government clinical records. Clinical records has multiple points of sources, likely a combination of screenings, clinical assessments, and documentation from correctional facilities. Statistical analysis also aided the process of organizing the data. 
 
 Data source: Zgoba, K. M., Reeves, R., Tamburello, A., & Debilio, L. (2020). Criminal Recidivism in Inmates with Mental Illness and Substance Use Disorders
 
@@ -74,7 +74,7 @@ dataplot <- ggplot(data_long,
 dataplot
 ```
 
-## Results
+## (3) Results
 
 The second set of data in Figure 2 comes from the New Survey of Prison Inmates Data Analysis Tool (SPI DAT) from the Bureau of Justice Statistics. It's a dynamic tool that allows public access to interact with data visualizations, with custom charts for a range of characteristics of incarcerated individuals in 2016. The data comes from a national survey of prisoners aged 18 or older in both state and federal correctional facilities. Prisoners with a substance use disorder (SUD) fulfill the criteria for the DSM-IV for either dependence or abuse of alcohol or drugs 12 months prior to incarceration. 
 
@@ -84,7 +84,7 @@ sud_by_offense <- read_csv("/Users/annieyu/Documents/ps270finalproject/sud_by_of
 off_data <- sud_by_offense |>
   mutate(SUD = 
            if_else( sud == "Yes", 1, 0))
-off_data
+knitr::kable(head(off_data))
 
 off_data_plot <- off_data |>
   ggplot(aes(x = offense_type,
@@ -111,13 +111,16 @@ off_data_plot <- off_data |>
   theme(panel.background = element_blank(),
         plot.caption = element_text(hjust = 0.5, size = 5),
         plot.title = element_text(size = 14, face = "bold", hjust = 0.1),
-    axis.title = element_text(size = 12, face = "bold"))
+    axis.title = element_text(size = 11, face = "bold"))
 
 off_data_plot
 ```
+
+This visualization suggests that property crimes are more likely to be committed by those with a substance use disorder than those without. 
+
 Regression 
 
-This third dataset comes from the Wisconsin Department of Corrections. The recidivism calculations of rearrest, reincarceration, and reconviction contain 3 components: report of release date, a 3-year follow-up period, and the documentation of a recidivism event. The sample is all persons released from prison in Wisconsin from 2000-2016.
+This third data data set comes from the Wisconsin Department of Corrections. The recidivism calculations of rearrests contain 3 components: report of release date, a 3-year follow-up period, and the documentation of a recidivism event. The sample is all persons released from prison in Wisconsin from 2000-2016.
 
 ```{r}
 raoodata <- read_csv("/Users/annieyu/Documents/ps270finalproject/rearrest_by_original_offense.csv")
@@ -133,7 +136,9 @@ raoodata_summary <- raoodata |>
   pivot_longer(
     cols = everything(), 
     names_to = "offense_type", 
-    values_to = "rearrest_rate")
+    values_to = "rearrest_rate") |>
+  rename("Offense Type" = offense_type,
+         "Rearrest Rate" = rearrest_rate)
 
 raoodata_sum_table <- raoodata_summary |>
   knitr::kable(digits = 2, caption = "Average Rearrest Rates by Offense Type")
@@ -158,7 +163,7 @@ knitr::kable(head(rearrest_long, 5))
 
 Bootstrapping Model
 
-As shown in the visualization, the bootstrapping model isn't compatible with the data set, because the same size is not extensive enough to generate a solid null distribution. An F-statistic is being used instead of difference in proportions or difference in means, because I am trying to measure the variability between the rearrest rates of 4 types of crime. Additionally, I am trying to evaluate whether the difference in the average rearrest rates are statistically significant compared to the overall variability in the data. The dashed line shows the standard deviation of the distribution and the black line represents the density curve of the permutations.  
+As shown in the visualization, the bootstrapping model isn't very compatible with the data set, because the sample size is not extensive enough to generate a solid null distribution. An F-statistic is being used instead of difference in proportions or difference in means, because I am trying to measure the variability between the rearrest rates of 4 types of crime. Additionally, I am trying to evaluate whether the difference in the average rearrest rates are statistically significant compared to the overall variability in the data. The dashed line shows the standard deviation of the distribution and the black line represents the density curve of the permutations.  
 
 ```{r}
 null_dist <- rearrest_long |>
@@ -197,7 +202,7 @@ null_dist_plot <- null_dist |>
     size = 1
   ) +
   labs(
-    title = "Simulation-Based Null Distribution with Normal Curve",
+    title = "Bootstrapping Null Distribution",
     x = "F-Statistic",
     y = "Density"
   ) +
@@ -224,189 +229,24 @@ modelsummary::modelsummary(lm_rearrest, statistic = c("s.e. = {std.error}",
                            gof_map = c("nobs", "r.squared","adj.r.squared"))
 ```
 
-The regression table shows that when $\alpha$ = 0.05, property offenses significantly predict higher rearrest rates, with an increase of 12.31 percentage points compared to violent offenses. Violent offenses was used as a reference group, since it had the lowest rearrest rate of the 4 categories. Drug offenses and public order offenses also predict higher rearrest rates, but only with increases of 5.45 and 3.69 percentage points. This suggests that property offenses have the strongest association with rearrest rates among these four main crime categories. The p-value of <0.001 means that we can reject the null hypothesis that there is no significant association one's original offense of a property crime and the likelihood of rearrest within 3 years post-release. 
+The regression table shows that when $\alpha$ = 0.05, property offenses significantly predict higher rearrest rates, with an increase of 12.31 percentage points compared to violent offenses. Violent offenses was used as a reference group, since it had the lowest rearrest rate of the 4 categories. Drug offenses and public order offenses also predict higher rearrest rates, but only with increases of 5.45 and 3.69 percentage points. This suggests that property offenses have the strongest association with rearrest rates among these four main crime categories. The p-value of <0.001 means that we can reject the null hypothesis that there is no significant association between one's original offense of a property crime and the likelihood of rearrest within 3 years post-release. 
 
-This analysis only shows a correlation, not a causal effect. Aspects like age, gender, race, socioeconomic status, etc. have not been accounted for because that information is not public information. 
+This analysis only shows a correlation, not a causal effect. Demographic variables have not been accounted for because that information is not included in publicly available data. 
 
-ignore---------------
+## (4) Conclusion
 
-note --- the most common offenses in property offense is burglary-Biulding or Dwelling, Forgery-Uttering, Misappropriate ID info-Obtain Money, Theft-Movable Property =< $2,500, and Take and Drive Vehicle w/o consent. 
+This analysis provides some insight into what types of crime those with substance use disorders commit and if the type of crime committed has an effect on their likelihood of rearrest. I use violent crime as a reference group, since those with substance use disorders make up a smaller percentage of offenders compared to those without. This may have implications on the analysis, because it is not a perfect control group.
 
-Drug Offense: 
-possession of NArcotic Drugs
-Manufacture/Deliver Heroin <3g
-Possession of THC (2nd+ Offense)
-Possess w/Intent - THC (<= 200 grams)
-Manufacture/Deliver Cocain (<= 1g)
+I recognize that this analysis is very far from providing a causal explanation on the relationship between substance use and recidivism, but I believe it provides a unique perspective on the character of those within the criminal justice system who struggle with substance use. Although the regression points to the conclusion that those whose original offense was a property crime may have a higher likelihood of rearrest than those with different offenses, it doesn't include substance use in the calculation. Rather, it is assumed the majority of people in the sample who commit property crimes are people with a SUD. Therefore, the hypothesis isn't directly answered due to such limitations in the data. The largest obstacle in conducting this report is the lack of access to one comprehensive longitudinal data set that follows an individual after release from incarceration. There are only bits and pieces of data available to the public for confidential reasons. Confounding variables such as age, gender, race, prior offenses, sexuality, socioeconomic status, etc. are not accounted for. Following the intersectional framework of sociology, these overlapping identities are very important to how one experiences daily life and what disadvantages they may be prone to. My report merely highlights the correlation that property crimes are more likely to be committed by those with a substance use disorder and those whose original offense is a property crime are more likely to be rearrested 3 years post-release.
 
-Public Order Offense: 
-Operating While under the Influence (5th or 6th)
-Possession of Firearm by Felon
-Operating While Under the Influence (7th, 8th, or 9th)
-OWI (4th within 5 yrs)
-Bail Jumping - Felony
-
-Violent Offense: 
-2nd Degree Sexual Assault of Child
-Armed Robbery
-Substantial Battery-Intend Bodily Harm
-2nd Degree Recklessly Endangering Safety
-Battery 
-## Results
-
----------
-
-## Summary
-
- 1 paragraph (i) summarizing results and assessing the extent to which you find support for your hypothesis; (ii) describing limitations of the analysis and threats to inference (missing data, confounding, etc), and stating how you could improve your analysis if you had more time/money. (2pts)
-
-
-
-
-limitations to analysis: lack of longitudinal data following individuals due to HIPPA, lack of knowledge of true nature fo substance use (what drugs are used the most and to what extent)
-
-
+Another important consideration is that this analysis excludes the other two categories of recidivism: reincarceration and reconviction. I chose to use rearrests as the primary baseline of data, because a rearrest is simply the arrest of an individual who has committed a criminal act. Reincarceration and reconviction data provide insight into what happens to the individual after charges are made. These two factors are not incredibly important to the hypothesis, because whether or not someone is reincarcerated and reconvicted depends on a multitude of variables that are difficult to measure: the discretion of the prosecutor, law enforcement, judge, and probation/parole officer (if applicable), the rehabilitation programs available in the district, biases, etc. The important matter is whether or not the individual has behaved in a way that warrants a documented arrest. 
 
 
 ## Works Cited
 
-https://www.unodc.org/documents/ungass2016/Contributions/Civil/DrugPolicyAlliance/DPA_Fact_Sheet_Drug_War_Mass_Incarceration_and_Race_June2015.pdf
-
 https://spi-data.bjs.ojp.gov/
 
-
-
-
-
-## Project thoughts
-
-I am interested in exploring data related to the relationship between the likelihood of recidivism and the presence of substance use.  
-
-## Milestone 2
-
-My research question: How does the presence of substance use affect the likelihood of recidivism after incarceration?
-
-Hypothesis: The presence of substance use increases the likelihood of recidivism due to the cyclical nature of addiction, isolation/difficulty reengaging with society, lack of rehabilitation treatment centers within jail/prison, and punitive nature of sentencing for drug-related crimes.
-
-  
-
-## Milestone 3
-
--------------------- -----------------------------------------------------------
- Name                 Description
- -------------------- ----------------------------------------------------------
- `num_male`           number of males in the full sample
-
- `num_females`        number of females in the full sample
-
- `white`              number of racially/ethnically White individuals
-
- `black`              number of racially/ethnically Black individuals
- 
- `hispanic`           number of racially/ethnically Hispanic individuals
- 
- `single`             number of individuals whose marital status is single
- 
- `married `           number of individuals whose marital status is married
- 
- `divorced`           number of individuals whose marital status is divorced
- 
- `separated`          number of individuals whose marital status is separated
- 
- `widowed`            number of individuals whose marital status is widowed
- 
- `some_school`        number of individuals who have completed some education
- 
- `hs_grad`            number of individuals who have completed high school
- 
- `some_col`           number of individuals who have completed some college
- 
- `sud_or`             percentage of sample who have shown a presence of substance use on release of incarceration
- 
- `no_sud_or`          percentage of sample who have not shown a presence of substance use on release of incarceration
-
- `sud_rearrest`       percentage of sample who have shown a presence of substance use and have gotten rearrested within 36 months of release
- 
- `no_sud_rearrest`    percentage of sample who have not shown a presence of substance use and have gotten rearrested within 36 months of release
- 
---------------------------------------------------------------------------------
-
-
-The percentage of the sample of who did not show a presence of substance use on release of incarceration had a smaller percentage of individuals who were rearrested within 36 months of release than the group who did show a presence of substance use on release of incarceration. It does not, however, indicate differences in gender or race/ethnicity. It also does not specify what the rearrest charge was or whether it resulted in a re-conviction or return to prison. 
-
-
-## Milestone 4
-
-
-WISCONSIN DOC DATASET: SUBSTANCE USE DISORDER PROGRAM REARREST RATES
-
--------------------- ----------------------------------------------------------
- Name                 Description
- -------------------- ----------------------------------------------------------
- `year`               date of release from incarceration
-
- `Treated`            Individuals with a drug history who participated in a substance use treatment program after release of                         incarceration
-
- `Control`            Individuals with a drug history who did not participate in a substance use treatment program after                             release of incarceration
-
- `followup_period`    1-Year, 2-Year, or 3-Year post-release check-up on participants
-
- `num_releases`       number of individuals in the study released at a given year
-
- `rearrest_perc`      rearrest rate for individuals in study
- ------------------------------------------------------------------------------
-
-
-
-```{r}
-data <- read_csv("/Users/annieyu/Documents/ps270milestone4data.csv")
-
-widata <- data |>
-  select(year, followup_period, group, rearrest_perc) |>
-  pivot_wider(
-    names_from = group,
-    values_from = rearrest_perc) |>
-  drop_na()
-
-widataplot <- widata |>
-  ggplot() +
-  geom_smooth(aes(x = followup_period,
-                  y = Treated,
-                  color = "Received Treatment Post-Release", group = 1),
-              method = "lm", se = FALSE) +
-  geom_smooth(aes(x = followup_period,
-                  y = Control,
-                  color = "No Treatment Post-Release", group = 1),
-              method = "lm", se = FALSE) +
-  geom_smooth(aes(x = followup_period,
-                  y = Total,
-                  color = "Total Rearrests in WI", group = 1), 
-                  method = "lm", se = FALSE) +
-  scale_color_manual(values = c(
-    "Received Treatment Post-Release" = "#1f78b4",
-    "No Treatment Post-Release" = "#33a02c",
-    "Total Formerly-Incarcerated Population" = "black")) +
-  labs(
-    title = "Rearrest Rates Among WI DOC Substance Use Treatment Participants",
-    x = "Follow-up Periods",
-    y = "Rearrest Rate (%)",
-    color = "Sample Groups",
-    caption = "Data Source: doc.wi.gov/DataResearch/RecidivismReincarceration/Primary%20Program%20Report_2022_FINAL.pdf") +
-  ylim(10,60) +
-  theme_minimal() +
-    theme(plot.title = element_text(face = "bold"),
-          axis.title.x = element_text(size = 11, face = "bold"),
-          axis.title.y = element_text(size = 11, face = "bold"),
-           plot.caption = element_text(hjust = 0.5, size = 5))
-            
-
-widataplot
-```
-The data source, the Wisconsin Department of Corrections Primary Programs Report includes data on individuals who entered substance use treatment after their release from incarceration, specifically within the state. Notably, this does not necessarily mean that those with a drug offense entered these programs and it also does not include every person with a drug history, just those included in the study. 
-
-The relationship shown above indicates that those who participated in the program experienced, on average, less rearrests than those with similar drug histories but who did not participate in treatment. The black line provides insight into how this group compares to the overall rearrest rate. The plot emphasizes again, that those experiencing substance use have relatively higher rearrest rates than the formerly incarcerated population as a whole . The periods where the treatment group showed a smaller rearrest rate than that of the total provides valuable insight into the potential of treatment in reducing overall recidivism. 
-
-In regards to future research, the upwards progression over time of rearrests for all groups is valuable for identifying at which point treatment should be implemented when it is most effective post-release. There may be underlying mechanisms that accumulate over time and increasingly pull individuals toward criminogenic behavior. This puts into question the need for long-term, sustained interventions that emphasize smooth transition periods.
+https://doc.wi.gov/DataResearch/RecidivismReincarceration/0821RecidivismAfterReleaseFromPrison.pdf
 
 
 
